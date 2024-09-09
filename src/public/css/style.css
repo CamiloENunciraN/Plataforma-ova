@@ -1,0 +1,80 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    background-color: rgb(235, 232, 232);
+    display: flex;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/024/496/683/large_2x/artificial-intelligence-white-library-classroom-in-space-a-futuristic-library-with-a-lot-of-books-with-natural-lightrealistic-2050-generate-ai-free-photo.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#izq{
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+#izq h1{
+    color: black;
+    text-shadow: 5px 5px 5px #aaa;
+    margin-bottom: 10px;
+    font-size: 50px
+}
+#izq img{
+    width: 50%;
+    height: auto;
+}
+#izq h2{
+    color: black;
+    text-shadow: 5px 5px 5px #aaa;
+}
+#der{
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#der form{
+    width: 350px;
+    background-color: rgb(215, 220, 250);
+    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
+    border-radius: 10px;
+}
+#der legend{
+    font-size: 20px;
+    text-shadow: 5px 5px 5px #aaa;
+    margin: 10px;
+    text-align: center;
+}
+#der label{
+    display: block;
+    margin-left: 10px;
+}
+#der input, select{
+    width: 330px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 0px;
+    background-color: white;
+    box-sizing: border-box;
+}
+#der p{
+    margin: 10px;
+    text-align: center;
+}
+#der input[type=submit]{
+    background-color: rgb(141, 119, 255); 
+    cursor: pointer;
+}
+#der input[type=submit]:hover{
+    background-color: rgb(113, 86, 246); 
+    cursor: pointer;
+}
