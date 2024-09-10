@@ -53,6 +53,12 @@ body{
     margin: 10px;
     text-align: center;
 }
+#der span{
+    width: 100%;
+    display: block;
+    text-align: center;
+    color: white;
+}
 #der label{
     display: block;
     margin-left: 10px;

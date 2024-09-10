@@ -21,22 +21,26 @@ const getCarta = (request, response) => {
 //ruta
 app.route("/carta").get(getCarta);
 
-const postCarta = (request, response) => {
-    const {plato, descripcion, precio, disponible} = request.body;
-    connection.query("INSERT INTO carta(plato, descripcion, precio, disponible) VALUES (?,?,?,?) ", 
-    [plato, descripcion, precio, disponible],
+const postIngresar = (request, response) => {
+    const {usuario, contrasena, rol} = request.body;
+    connection.query("SELECT correo, rol FROM Usuario WHERE correo=? AND contrasena=? AND rol=? ", 
+    [usuario, contrasena, rol],
     (error, results) => {
         if(error){
+            console.log(error);
             response.status(200).json({'msg':'Ha ocurrido un error'});
         }else{
-            response.status(201).json({'msg':'Item añadido correctamente',
-                                        'results':results.affectedRows});
+            if(results.length===1){
+                response.status(200).json({'msg':'Usuario valido',
+                                            'results':results});
+            }else{
+                response.status(200).json({'msg':'Ha ocurrido un error'});
+            }
         }
     });
 };
-
 //ruta
-app.route("/carta").post(postCarta);
+app.route("/ingresar").post(postIngresar);
 
 
 const delCarta = (request, response) => {

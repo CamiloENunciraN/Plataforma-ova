@@ -1,0 +1,170 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+header{
+    width: 95%;
+    height: 70px;
+    border-radius: 10px 10px 0px 0px;
+    border: 1px solid black;
+    margin-top: 20px;
+    background-color: rgb(215, 220, 250);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
+    flex-wrap: wrap;
+}
+header h1{
+    display: inline-block;
+    margin-left: 10px;
+    text-shadow: 5px 5px 5px #aaa;
+}
+#rol{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 10px;
+    font-weight: normal;
+}
+#progreso{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: normal;
+}
+nav{
+    width: 95%;
+    min-height: 50px;
+    border: 1px solid black;
+    background-color: rgb(241, 243, 254);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
+    flex-wrap: wrap;
+}
+nav h3, h4{
+    margin: 10px;
+}
+nav h4{
+    cursor: pointer;
+}
+nav h4:hover{
+    color: blue;
+}
+#salir{
+    margin-left: auto;
+}
+#cursos{
+    width: 95%;
+    height: auto;
+    margin-top: 20px;
+    border: 1px solid black;
+    background-color: rgb(241, 243, 254);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
+    flex-wrap: wrap;
+}
+#cursos div{
+    width: 300px;
+    height: 400px;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+    cursor: pointer;
+}
+#cursos div:hover{
+    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.5);
+}
+#cursos img{
+    width: 250px;
+    height: 250px;
+    border: 1px solid black;
+    background-color: rgb(215, 220, 250);
+    padding: 20px;
+    box-sizing: border-box;
+}
+#cursos h2{
+    margin: 20px;
+}
+#cursos h4.disponible{
+    font-weight: normal;
+    background-color: rgb(139, 255, 139);
+    width: 50%;
+    height: 20px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid green;
+}
+#cursos h4.proximamente{
+    font-weight: normal;
+    background-color: rgb(245, 255, 139);
+    width: 50%;
+    height: 20px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid yellow;
+}
+#unidades{
+    width: 95%;
+    height: auto;
+    margin-top: 20px;
+    border: 1px solid black;
+    background-color: rgb(241, 243, 254);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
+    flex-wrap: wrap;
+}
+#unidades div{
+    margin: 20px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
+    flex-wrap: wrap;
+}
+#listado_unidades{
+    width: 30%;
+    background-color: rgb(215, 220, 250);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#listado_unidades h1{
+    margin: 10px;
+}
+#listado_unidades ol{
+    margin: 10px;
+    width: 90%;
+}
+#listado_unidades li{
+    margin: 10px;
+    width: 90%;
+    font-weight: bold;
+}
+#listado_unidades li:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+#visualizar_unidades{
+    width: 60%;
+    height: 500px;
+    background-color: rgb(241, 243, 254);
+}

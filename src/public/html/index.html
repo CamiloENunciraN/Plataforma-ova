@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/css/style.css">
+    <link rel="stylesheet" href="./public/css/index.css">
+    <link rel="shortcut icon" href="https://cdn3d.iconscout.com/3d/premium/thumb/robot-feliz-9580058-7746754.png?f=webp" type="image/x-icon">
     <title>PAUCOVA</title>
 </head>
 <body>
@@ -14,20 +15,21 @@
         <h2>Por: Camilo Nuncira</h2>
     </section>
     <section id="der">
-        <form action="">
+        <form action="" id="formIniciarSesion">
                 <legend>Iniciar Sesion</legend>
-                <label for="usuario">Usuario:</label>
-                <input id="usuario" type="text"  title="Usuario" maxlength="20" required/>
+                <span id="notificacion"></span>
+                <label for="usuario">Correo:</label>
+                <input id="usuario" type="email" name="usuario"  title="Usuario" maxlength="20" required/>
                 <label for="contrasena">Contraseña:</label>
-                <input id="contrasena"  type="password" title="Contrasena" maxlength="20" required>
-                <label for="Rol">Rol:</label>
-                <select name="Rol" id="rol">
+                <input id="contrasena"  type="password" name="contrasena" title="Contrasena" maxlength="20" required>
+                <label for="rol">Rol:</label>
+                <select name="Rol" id="rol" name="rol">
                     <option value="administrador">Administrador</option>
                     <option value="tutor">Tutor</option>
                     <option value="estudiante" selected>Estudiante</option>
                 </select>
                 <input type="submit"  value="Ingresar" id="ingresar"/>
-                <p>Al ingresar acepta los terminos y condiciones de la utilizacion de la plataforma.</p>
+                <p>Al ingresar acepta los terminos y condiciones de la plataforma.</p>
         </form>
     </section>
 </body>
