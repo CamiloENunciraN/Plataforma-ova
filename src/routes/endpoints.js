@@ -7,8 +7,9 @@ dotenv.config();
 //conexión con la base de datos
 const {connection} = require("./../configDB/config.db");
 
-const getCarta = (request, response) => {
-    connection.query("SELECT * FROM Noticia", 
+const getInfoCurso = (request, response) => {
+    const curso = request.params.curso;
+    connection.query("SELECT * FROM Curso WHERE nombre=?",[curso], 
     (error, results) => {
         if(error){
             response.status(200).json({'msg':'Ha ocurrido un error'});
@@ -19,7 +20,22 @@ const getCarta = (request, response) => {
     });
 };
 //ruta
-app.route("/carta").get(getCarta);
+app.route("/informacion/curso/:curso").get(getInfoCurso);
+
+const getBibliografiaCurso = (request, response) => {
+    const curso = request.params.curso;
+    connection.query("SELECT l.nombre, l.link, l.imagen FROM Curso c, LibrosXCurso lxc, Libro l WHERE c.id=lxc.id_curso AND lxc.id_libro=l.id AND c.nombre=?",[curso], 
+    (error, results) => {
+        if(error){
+            response.status(200).json({'msg':'Ha ocurrido un error'});
+        }else{
+            response.status(200).json({'msg':'Busqueda realizada',
+                                        'results':results});
+        }
+    });
+};
+//ruta
+app.route("/bibliografia/curso/:curso").get(getBibliografiaCurso);
 
 const postIngresar = (request, response) => {
     const {usuario, contrasena, rol} = request.body;

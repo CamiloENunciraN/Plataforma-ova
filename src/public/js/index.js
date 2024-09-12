@@ -1,8 +1,4 @@
 
-
-
-
-
 document.getElementById('formIniciarSesion').addEventListener('submit', async (e) => {
     e.preventDefault();
     //inhabilitar boton
@@ -30,6 +26,8 @@ document.getElementById('formIniciarSesion').addEventListener('submit', async (e
         notificacion.style.backgroundColor = 'red';
         boton.disabled=false;
     }else{
+        localStorage.setItem('correo', data.results[0].correo);
+        localStorage.setItem('rol', data.results[0].rol);
         location.href='/public/html/dashboard.html';
     }
   });

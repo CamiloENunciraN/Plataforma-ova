@@ -14,7 +14,8 @@ header{
     border-radius: 10px 10px 0px 0px;
     border: 1px solid black;
     margin-top: 20px;
-    background-color: rgb(215, 220, 250);
+    background: linear-gradient(180deg, rgba(100,149,237,1) 0%, rgba(51,105,232,1) 100%);
+    /*background-color: rgb(215, 220, 250);*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,17 +33,12 @@ header h1{
     margin-right: 10px;
     font-weight: normal;
 }
-#progreso{
-    display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-weight: normal;
-}
 nav{
     width: 95%;
     min-height: 50px;
     border: 1px solid black;
-    background-color: rgb(241, 243, 254);
+    background: linear-gradient(180deg, rgb(106, 149, 223) 0%, rgb(255, 255, 255) 100%);
+    /*background-color: rgb(241, 243, 254);*/
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -61,10 +57,11 @@ nav h4:hover{
 #salir{
     margin-left: auto;
 }
-#cursos{
+#curso{
     width: 95%;
     height: auto;
     margin-top: 20px;
+    margin-bottom: 20px;
     border: 1px solid black;
     background-color: rgb(241, 243, 254);
     display: flex;
@@ -73,55 +70,81 @@ nav h4:hover{
     box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
     flex-wrap: wrap;
 }
-#cursos div{
-    width: 300px;
-    height: 400px;
+#curso div{
     border: 1px solid black;
     border-radius: 10px;
     box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     margin: 20px;
-    cursor: pointer;
 }
-#cursos div:hover{
+#curso div:hover{
     box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.5);
 }
-#cursos img{
-    width: 250px;
-    height: 250px;
-    border: 1px solid black;
-    background-color: rgb(215, 220, 250);
-    padding: 20px;
-    box-sizing: border-box;
-}
-#cursos h2{
-    margin: 20px;
-}
-#cursos h4.disponible{
-    font-weight: normal;
-    background-color: rgb(139, 255, 139);
-    width: 50%;
-    height: 20px;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid green;
-}
-#cursos h4.proximamente{
-    font-weight: normal;
-    background-color: rgb(245, 255, 139);
-    width: 50%;
-    height: 20px;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid yellow;
-}
+    #curso_tarjeta{
+        width: 300px;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: rgb(241, 229, 255) ;
+    }
+    #curso_tarjeta img{
+        width: 250px;
+        height: 250px;
+        border: 1px solid black;
+        background-color: rgb(145, 59, 249) ;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    #curso_tarjeta h2{
+        margin: 20px;
+    }
+    #curso_tarjeta h4.disponible{
+        font-weight: normal;
+        background-color: rgb(139, 255, 139);
+        width: 50%;
+        height: 20px;
+        text-align: center;
+        border-radius: 10px;
+        border: 1px solid green;
+    }
+    #curso_tarjeta h4.proximamente{
+        font-weight: normal;
+        background-color: rgb(245, 255, 139);
+        width: 50%;
+        height: 20px;
+        text-align: center;
+        border-radius: 10px;
+        border: 1px solid yellow;
+    }
+    #curso_info{
+        width: 800px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow: auto;
+        background-color: white;
+    }
+    #curso_info span{
+        font-weight: bold;
+    }
+    #curso_info pre{
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;       /* Since CSS 2.1 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    }
 #unidades{
     width: 95%;
     height: auto;
     margin-top: 20px;
+    margin-bottom: 20px;
     border: 1px solid black;
     background-color: rgb(241, 243, 254);
     display: flex;
@@ -130,41 +153,88 @@ nav h4:hover{
     box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
     flex-wrap: wrap;
 }
-#unidades div{
-    margin: 20px;
+    #unidades div{
+        margin: 20px;
+        border: 1px solid black;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
+        flex-wrap: wrap;
+    }
+    #listado_unidades{
+        width: 30%;
+        background-color: rgb(215, 220, 250);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    #listado_unidades h1{
+        margin: 10px;
+    }
+    #listado_unidades ol{
+        margin: 10px;
+        width: 90%;
+    }
+    #listado_unidades li{
+        margin: 10px;
+        width: 90%;
+        font-weight: bold;
+    }
+    #listado_unidades li:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    #visualizar_unidades{
+        width: 60%;
+        height: 500px;
+        background-color: rgb(241, 243, 254);
+    }
+#bibliografias{
+    width: 95%;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     border: 1px solid black;
+    background-color: rgb(241, 243, 254);
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
     flex-wrap: wrap;
 }
-#listado_unidades{
-    width: 30%;
-    background-color: rgb(215, 220, 250);
+.libro{
+    width: 250px;
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-#listado_unidades h1{
-    margin: 10px;
-}
-#listado_unidades ol{
-    margin: 10px;
-    width: 90%;
-}
-#listado_unidades li{
-    margin: 10px;
-    width: 90%;
-    font-weight: bold;
-}
-#listado_unidades li:hover{
+    margin: 20px;
     cursor: pointer;
+}
+.libro:hover{
     text-decoration: underline;
 }
-#visualizar_unidades{
-    width: 60%;
-    height: 500px;
-    background-color: rgb(241, 243, 254);
+.libro div{
+    background-image: url('https://emojitool.com/img/facebook/4.0/closed-book-4012.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 90%;
+    height: 80%;
+    box-sizing: border-box;
+}
+.libro img{
+    width: 142px;
+    height: 185px;
+    margin-left: 25% ;
+    margin-top: 4%;
+}
+footer{
+    margin: 10px; 
+}
+footer p{
+    display: inline;
+    margin: 0px 10px;
 }
