@@ -37,6 +37,22 @@ const getBibliografiaCurso = (request, response) => {
 //ruta
 app.route("/bibliografia/curso/:curso").get(getBibliografiaCurso);
 
+const getContenidoCurso = (request, response) => {
+    const curso = request.params.curso;
+    connection.query("SELECT u.nombre AS unidad, u.numero, ct.nombre As contenido , ct.link FROM Curso c, Unidad u, Contenido ct WHERE c.id=u.id_curso AND u.id=ct.id_unidad AND c.nombre=?",
+    [curso], 
+    (error, results) => {
+        if(error){
+            response.status(200).json({'msg':'Ha ocurrido un error'});
+        }else{
+            response.status(200).json({'msg':'Busqueda realizada',
+                                        'results':results});
+        }
+    });
+};
+//ruta
+app.route("/contenido/curso/:curso").get(getContenidoCurso);
+
 const postIngresar = (request, response) => {
     const {usuario, contrasena, rol} = request.body;
     connection.query("SELECT correo, rol FROM Usuario WHERE correo=? AND contrasena=? AND rol=? ", 

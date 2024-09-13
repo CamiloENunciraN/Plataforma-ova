@@ -49,6 +49,7 @@ function cargarBibliografia(){
     //procesamiento respuesta
     //console.log(data);
     const div = document.getElementById('bibliografias');
+    div.innerHTML='';
     for(let i=0; i < data.results.length; i++){
         div.innerHTML+= `<div class="libro" title="Ver" onclick=verLibro('${data.results[i].link}')>
                             <div>
@@ -62,24 +63,71 @@ function cargarBibliografia(){
 }
 
 function verLibro(link){
-    alert('on fire');
+    window.open(link, '_blank');
 }
 
+function cargarContenido(){
+    ocultarDiv(document.getElementById('unidades'));
+    const curso = 'Bases de datos SQL'
+    //peticion de datos
+    fetch(`/contenido/curso/${curso}`)
+  .then(response => response.json())
+  .then(data => {
+    //procesamiento respuesta
+    //console.log(data);
+    //console.log(obtenerUnidades(data.results));
+    let unidades = obtenerUnidades(data.results);
+    const div = document.getElementById('listado_unidades');
+    div.innerHTML='';
+    let cad = `<h1>Unidades</h1>`;
+    for (let i = 0; i < unidades.length; i++) {
+        let contenido = '';
+        //genera una cadena con la lista de contenidos de una unidad
+        for (let x = 0; x < data.results.length; x++) {
+            if(data.results[x].unidad===unidades[i]){
+                contenido +=`<li onclick=verContenido('${data.results[x].link}')>${data.results[x].contenido}</li>`;
+            }
+        }
+        cad += `<details>
+                    <summary>${unidades[i]}</summary>
+                    <ol>
+                        ${contenido}
+                    </ol>
+                </details>`;
+        
+    }
+    div.innerHTML = cad;
+  })
+  .catch(error => console.error('Error:', error));
+}
+//quita las unidades repetidas que vengan en el contenido
+function obtenerUnidades(data){
+    let uni = [];
+    for (let i = 0; i < data.length; i++) {
+        if(!uni.includes(data[i].unidad)){
+            uni.push(data[i].unidad);
+        }
+    }
+    return uni;
+}
+//cargar el contenido del contenido xd
+function verContenido(){
+    alert('cargando');
+}
 /*****************************************************************/
 //elementos del menu de navegacion al dar click en ellos
 /*******************************************************************/
 document.getElementById('informacion').addEventListener('click',()=>{
     //traer la info
-    cargarCurso()
+    cargarCurso();
 });
 document.getElementById('unidad').addEventListener('click',()=>{
-    //visualizar el elemento correspondiente
-    ocultarDiv(document.getElementById('unidades'));
     //traer la info
+    cargarContenido();
 });
 document.getElementById('bibliografia').addEventListener('click',()=>{
     //traer la info
-    cargarBibliografia()
+    cargarBibliografia();
 });
 
 function ocultarDiv(target){

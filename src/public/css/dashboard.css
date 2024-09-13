@@ -169,7 +169,23 @@ nav h4:hover{
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        padding: 10px;
+        box-sizing: border-box;
     }
+    #listado_unidades details {
+        width: 90%;
+      }
+    #listado_unidades summary {
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+      }
+    #listado_unidades summary::-webkit-details-marker {
+        display: none;
+      }
+      #listado_unidades summary:hover {
+        text-decoration: underline;
+      }
     #listado_unidades h1{
         margin: 10px;
     }
@@ -180,7 +196,6 @@ nav h4:hover{
     #listado_unidades li{
         margin: 10px;
         width: 90%;
-        font-weight: bold;
     }
     #listado_unidades li:hover{
         cursor: pointer;
@@ -238,3 +253,4 @@ footer p{
     display: inline;
     margin: 0px 10px;
 }
+
