@@ -53,6 +53,23 @@ const getContenidoCurso = (request, response) => {
 //ruta
 app.route("/contenido/curso/:curso").get(getContenidoCurso);
 
+const getCalificaciones = (request, response) => {
+    const curso = request.params.curso;
+    const usuario = request.params.usuario;
+    connection.query("SELECT e.nombre, e.descripcion, eu.fecha_realizacion, eu.calificacion FROM EvaluacionesXusuario eu, Evaluacion e, Curso c, Usuario u WHERE c.id=e.id_curso AND eu.id_evaluacion=e.id AND c.nombre=? AND u.correo=?",
+    [curso,usuario], 
+    (error, results) => {
+        if(error){
+            response.status(200).json({'msg':'Ha ocurrido un error'});
+        }else{
+            response.status(200).json({'msg':'Busqueda realizada',
+                                        'results':results});
+        }
+    });
+};
+//ruta
+app.route("/calificaciones/:curso/:usuario").get(getCalificaciones);
+
 const postIngresar = (request, response) => {
     const {usuario, contrasena, rol} = request.body;
     connection.query("SELECT correo, rol FROM Usuario WHERE correo=? AND contrasena=? AND rol=? ", 
@@ -92,20 +109,5 @@ const delCarta = (request, response) => {
 app.route("/carta/:id").delete(delCarta);
 
 
-
-// Configurar el servidor para enviar actualizaciones a través de SSE
-const update = (req, res) => {
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  
-  let c=0;
-  // Enviar actualizaciones cada 5 segundos (ejemplo)
-  setInterval(() => {
-    res.write(`data: Nueva actualización `+c+`\n\n`); // Enviar la actualización al cliente
-    c++;
-  }, 5000);
-}
-//ruta
-app.route("/update").get(update);
 
 module.exports = app;

@@ -114,6 +114,51 @@ function obtenerUnidades(data){
 function verContenido(){
     alert('cargando');
 }
+function cargarCalificaciones(){
+    const div = document.getElementById('calificaciones');
+    let usuario = localStorage.getItem('correo')
+    ocultarDiv(div);
+    const curso = 'Bases de datos SQL'
+    //peticion de datos
+    fetch(`/calificaciones/${curso}/${usuario}`)
+  .then(response => response.json())
+  .then(data => {
+    //procesamiento respuesta
+    let suma = 0;
+    let cont = 0;
+    let cad = `<h1>Calificaciones</h1>
+                <table>
+                    <tr>
+                        <th id="tabla_evaluacion">Evaluacion</th>
+                        <th id="tabla_fecha">Fecha</th>
+                        <th id="tabla_calificacion">Calificacion</th>
+                    </tr>`;
+    for(let i=0; i<data.results.length;i++){
+        let color ='';
+        if(data.results[i].calificacion<5){
+            color = 'cal_rojo';
+        }else if(data.results[i].calificacion>=5 && data.results[i].calificacion<7){
+            color = 'cal_amarillo';
+        }else{
+            color = 'cal_verde';
+        }
+        cad +=`<tr title="${data.results[i].descripcion}">
+                    <td>${data.results[i].nombre}</td>
+                    <td>${data.results[i].fecha_realizacion.toLocaleString()}</td>
+                    <td><div class="ind_calificacion ${color}">${data.results[i].calificacion}</div></td>
+                </tr>`;
+        suma += data.results[i].calificacion;
+        cont++;
+    }
+    cad +=`<tr>
+                <th colspan="2">Promedio</th>
+                <th>${suma/cont}</th>
+            </tr>
+        </table>`;
+    div.innerHTML= cad;
+    })
+    .catch(error => console.error('Error:', error));
+}
 /*****************************************************************/
 //elementos del menu de navegacion al dar click en ellos
 /*******************************************************************/
@@ -124,6 +169,10 @@ document.getElementById('informacion').addEventListener('click',()=>{
 document.getElementById('unidad').addEventListener('click',()=>{
     //traer la info
     cargarContenido();
+});
+document.getElementById('calificacion').addEventListener('click',()=>{
+    //traer la info
+    cargarCalificaciones();
 });
 document.getElementById('bibliografia').addEventListener('click',()=>{
     //traer la info
