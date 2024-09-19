@@ -70,6 +70,22 @@ const getCalificaciones = (request, response) => {
 //ruta
 app.route("/calificaciones/:curso/:usuario").get(getCalificaciones);
 
+const getRecursos = (request, response) => {
+    const curso = request.params.curso;
+    connection.query("SELECT r.nombre, r.link FROM Recurso r, Curso c WHERE c.id=r.id_curso AND c.nombre=?",
+    [curso], 
+    (error, results) => {
+        if(error){
+            response.status(200).json({'msg':'Ha ocurrido un error'});
+        }else{
+            response.status(200).json({'msg':'Busqueda realizada',
+                                        'results':results});
+        }
+    });
+};
+//ruta
+app.route("/recursos/:curso").get(getRecursos);
+
 const postIngresar = (request, response) => {
     const {usuario, contrasena, rol} = request.body;
     connection.query("SELECT correo, rol FROM Usuario WHERE correo=? AND contrasena=? AND rol=? ", 

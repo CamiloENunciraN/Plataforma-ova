@@ -9,7 +9,7 @@ function cargar(){
 //trae la informacion del curso
 function cargarCurso(){
     ocultarDiv(document.getElementById('curso'));
-    const curso = 'Bases de datos SQL'
+    const curso = 'Bases de datos SQL';
     //peticion de datos
     fetch(`/informacion/curso/${curso}`)
   .then(response => response.json())
@@ -41,7 +41,7 @@ function cargarCurso(){
 
 function cargarBibliografia(){
     ocultarDiv(document.getElementById('bibliografias'));
-    const curso = 'Bases de datos SQL'
+    const curso = 'Bases de datos SQL';
     //peticion de datos
     fetch(`/bibliografia/curso/${curso}`)
   .then(response => response.json())
@@ -68,7 +68,7 @@ function verLibro(link){
 
 function cargarContenido(){
     ocultarDiv(document.getElementById('unidades'));
-    const curso = 'Bases de datos SQL'
+    const curso = 'Bases de datos SQL';
     //peticion de datos
     fetch(`/contenido/curso/${curso}`)
   .then(response => response.json())
@@ -116,9 +116,9 @@ function verContenido(){
 }
 function cargarCalificaciones(){
     const div = document.getElementById('calificaciones');
-    let usuario = localStorage.getItem('correo')
+    let usuario = localStorage.getItem('correo');
     ocultarDiv(div);
-    const curso = 'Bases de datos SQL'
+    const curso = 'Bases de datos SQL';
     //peticion de datos
     fetch(`/calificaciones/${curso}/${usuario}`)
   .then(response => response.json())
@@ -159,6 +159,33 @@ function cargarCalificaciones(){
     })
     .catch(error => console.error('Error:', error));
 }
+
+function cargarRecursos(){
+    const div = document.getElementById('recursos');
+    ocultarDiv(div);
+    const curso = 'Bases de datos SQL';
+    //peticion de datos
+    fetch(`/recursos/${curso}`)
+  .then(response => response.json())
+  .then(data => {
+    //procesamiento respuesta
+    let cad = `<h1>Recursos</h1>
+                <table>
+                    <tr>
+                        <th id="tabla_nombre_descarga">Nombre</th>
+                        <th id="tabla_descarga">Descarga</th>
+                    </tr>`;
+        for (let i = 0; i < data.results.length; i++) {
+        cad +=`<tr title="Click en descarga para obtener el recurso">
+                    <td>${data.results[i].nombre}</td>
+                    <td><a href="${data.results[i].link}" target="_blank">Descargar</a></td>
+                </tr>`;
+        }
+    cad +=`</table>`;
+    div.innerHTML= cad;
+    })
+    .catch(error => console.error('Error:', error));
+}
 /*****************************************************************/
 //elementos del menu de navegacion al dar click en ellos
 /*******************************************************************/
@@ -173,6 +200,10 @@ document.getElementById('unidad').addEventListener('click',()=>{
 document.getElementById('calificacion').addEventListener('click',()=>{
     //traer la info
     cargarCalificaciones();
+});
+document.getElementById('recurso').addEventListener('click',()=>{
+    //traer la info
+    cargarRecursos();
 });
 document.getElementById('bibliografia').addEventListener('click',()=>{
     //traer la info

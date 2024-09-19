@@ -318,6 +318,52 @@ nav h4:hover{
         background-color: rgba(150, 254, 150, 0.5);
         border: 1px solid green;
     }
+#recursos{
+    width: 95%;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    background-color: rgb(241, 243, 254);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
+    flex-wrap: wrap;
+}
+ #recursos h1{
+        margin: 20px;
+    }
+    #recursos table{
+        width: 70%;
+        margin: 20px;
+        border: 1px solid black;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+    #recursos th{
+        background-color: #7bbbfb;
+        border: 1px solid black;
+    }
+    #recursos tr{
+        height: 50px;
+    }
+    #recursos td{
+        text-align: center;
+    }
+    #tabla_nombre_descarga{
+        width: 50%;
+    }
+    #tabla_descarga{
+        width: 50%;
+    }
+    #recursos table tbody tr:nth-child(odd) {
+        background: #ffe0e0;
+    }
+    #recursos table tbody tr:nth-child(even) {
+        background: #f0effd;
+    }
 footer{
     margin: 10px; 
 }
