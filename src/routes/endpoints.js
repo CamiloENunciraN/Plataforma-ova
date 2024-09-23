@@ -39,7 +39,7 @@ app.route("/bibliografia/curso/:curso").get(getBibliografiaCurso);
 
 const getContenidoCurso = (request, response) => {
     const curso = request.params.curso;
-    connection.query("SELECT u.nombre AS unidad, u.numero, ct.nombre As contenido , ct.link FROM Curso c, Unidad u, Contenido ct WHERE c.id=u.id_curso AND u.id=ct.id_unidad AND c.nombre=?",
+    connection.query("SELECT u.nombre AS unidad, u.numero, ct.nombre As contenido , ct.link , ct.tipo FROM Curso c, Unidad u, Contenido ct WHERE c.id=u.id_curso AND u.id=ct.id_unidad AND c.nombre=?",
     [curso], 
     (error, results) => {
         if(error){
@@ -56,7 +56,7 @@ app.route("/contenido/curso/:curso").get(getContenidoCurso);
 const getCalificaciones = (request, response) => {
     const curso = request.params.curso;
     const usuario = request.params.usuario;
-    connection.query("SELECT e.nombre, e.descripcion, eu.fecha_realizacion, eu.calificacion FROM EvaluacionesXusuario eu, Evaluacion e, Curso c, Usuario u WHERE c.id=e.id_curso AND eu.id_evaluacion=e.id AND c.nombre=? AND u.correo=?",
+    connection.query("SELECT e.nombre, e.descripcion, eu.fecha_realizacion, eu.calificacion FROM EvaluacionesXusuario eu, Evaluacion e, Curso c, Unidad un, Contenido ct, Usuario u WHERE c.id=un.id_curso AND un.id=ct.id_unidad AND ct.id=e.id_contenido AND eu.id_evaluacion=e.id AND c.nombre=? AND u.correo=?",
     [curso,usuario], 
     (error, results) => {
         if(error){

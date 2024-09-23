@@ -7,46 +7,64 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color:  rgba(201, 216, 243,1) ;
 }
 header{
-    width: 95%;
+    width: 100%;
     height: 70px;
-    border-radius: 10px 10px 0px 0px;
     border: 1px solid black;
-    margin-top: 20px;
+    border-left: none;
+    border-right: none;
     background: linear-gradient(180deg, rgba(100,149,237,1) 0%, rgba(51,105,232,1) 100%);
-    /*background-color: rgb(215, 220, 250);*/
+    background-image: url('./../img/banner.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
     flex-wrap: wrap;
 }
+header img {
+    height: 100%;
+    margin-left: 20px;
+}
 header h1{
     display: inline-block;
     margin-left: 10px;
-    text-shadow: 5px 5px 5px #aaa;
+    text-shadow: 5px 5px 5px #1a0808;
+    color: rgb(249, 188, 6);
+}
+header h3{
+    text-shadow: 5px 5px 5px #1a0808;
+    color: rgb(249, 188, 6);
+}
+#bienvenida{
+    display: inline-block;
+    margin-left: auto;
 }
 #rol{
     display: inline-block;
-    margin-left: auto;
+    margin-left: 10px;
     margin-right: 10px;
-    font-weight: normal;
 }
 nav{
-    width: 95%;
-    min-height: 50px;
+    width: 100%;
+    min-height: 40px;
     border: 1px solid black;
     background: linear-gradient(180deg, rgb(106, 149, 223) 0%, rgb(255, 255, 255) 100%);
-    /*background-color: rgb(241, 243, 254);*/
     display: flex;
     justify-content: flex-start;
     align-items: center;
     box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
     flex-wrap: wrap;
+    border-left: none;
+    border-right: none;
 }
 nav h3, h4{
     margin: 10px;
+    display: inline-block;
+    height: 100%;
 }
 nav h4{
     cursor: pointer;
@@ -62,12 +80,10 @@ nav h4:hover{
     height: auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    border: 1px solid black;
-    background-color: rgb(241, 243, 254);
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
     flex-wrap: wrap;
 }
 #curso div{
@@ -145,20 +161,14 @@ nav h4:hover{
     height: auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    border: 1px solid black;
-    background-color: rgb(241, 243, 254);
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
     flex-wrap: wrap;
 }
     #unidades div{
         margin: 20px;
         border: 1px solid black;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
         box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
         flex-wrap: wrap;
     }
@@ -205,18 +215,37 @@ nav h4:hover{
         width: 60%;
         height: 500px;
         background-color: rgb(241, 243, 254);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    #visualizar_unidades iframe {
+        width: 100%;
+        height: 100%;
+    }
+    #visualizar_unidades h1, h2 {
+        width: 70%;
+        background-color: white;
+        border-radius: 10px;
+        margin: 20px;
+        font-style: italic;
+        padding: 10px;
+        border: 1px solid grey;
+    }
+    #visualizar_unidades img{
+        width: 200px;
+        height: 200px;
     }
 #bibliografias{
     width: 95%;
     height: auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    border: 1px solid black;
-    background-color: rgb(241, 243, 254);
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
     flex-wrap: wrap;
 }
     .libro{
@@ -251,13 +280,10 @@ nav h4:hover{
     height: auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    border: 1px solid black;
-    background-color: rgb(241, 243, 254);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
     flex-wrap: wrap;
 }
     #calificaciones h1{
@@ -323,13 +349,10 @@ nav h4:hover{
     height: auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    border: 1px solid black;
-    background-color: rgb(241, 243, 254);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
     flex-wrap: wrap;
 }
  #recursos h1{

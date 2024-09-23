@@ -2,7 +2,7 @@ cargar();
 
 function cargar(){
     let usuario = localStorage.getItem('correo').split("@");
-    document.getElementById('bienvenida').innerHTML= 'Bienvenido '+usuario[0];
+    document.getElementById('bienvenida').innerHTML= 'Bienvenido: '+usuario[0];
     document.getElementById('rol').innerHTML = 'Rol: '+localStorage.getItem('rol');
     cargarCurso();
 }
@@ -85,7 +85,7 @@ function cargarContenido(){
         //genera una cadena con la lista de contenidos de una unidad
         for (let x = 0; x < data.results.length; x++) {
             if(data.results[x].unidad===unidades[i]){
-                contenido +=`<li onclick=verContenido('${data.results[x].link}')>${data.results[x].contenido}</li>`;
+                contenido +=`<li onclick=verContenido('${data.results[x].link}','${data.results[x].tipo}')>${data.results[x].contenido}</li>`;
             }
         }
         cad += `<details>
@@ -111,8 +111,16 @@ function obtenerUnidades(data){
     return uni;
 }
 //cargar el contenido del contenido xd
-function verContenido(){
-    alert('cargando');
+function verContenido(link, tipo){
+    const div = document.getElementById('visualizar_unidades');
+    if(tipo==='Video'){
+        div.innerHTML = `<iframe src="${link}" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; 
+                        encrypted-media; gyroscope; picture-in-picture; 
+                        web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen></iframe>`;
+    }
 }
 function cargarCalificaciones(){
     const div = document.getElementById('calificaciones');
@@ -133,7 +141,7 @@ function cargarCalificaciones(){
                         <th id="tabla_fecha">Fecha</th>
                         <th id="tabla_calificacion">Calificacion</th>
                     </tr>`;
-    for(let i=0; i<data.results.length;i++){
+    for(let i=0; i < data.results.length; i++){
         let color ='';
         if(data.results[i].calificacion<5){
             color = 'cal_rojo';
