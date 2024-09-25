@@ -85,7 +85,7 @@ function cargarContenido(){
         //genera una cadena con la lista de contenidos de una unidad
         for (let x = 0; x < data.results.length; x++) {
             if(data.results[x].unidad===unidades[i]){
-                contenido +=`<li onclick=verContenido('${data.results[x].link}','${data.results[x].tipo}')>${data.results[x].contenido}</li>`;
+                contenido +=`<li onclick=verContenido('${data.results[x].link}','${data.results[x].tipo}','${data.results[x].id}')>${data.results[x].contenido}</li>`;
             }
         }
         cad += `<details>
@@ -111,7 +111,7 @@ function obtenerUnidades(data){
     return uni;
 }
 //cargar el contenido del contenido xd
-function verContenido(link, tipo){
+function verContenido(link, tipo , id){
     const div = document.getElementById('visualizar_unidades');
     if(tipo==='Video'){
         div.innerHTML = `<iframe src="${link}" 
@@ -120,6 +120,8 @@ function verContenido(link, tipo){
                         encrypted-media; gyroscope; picture-in-picture; 
                         web-share" referrerpolicy="strict-origin-when-cross-origin" 
                         allowfullscreen></iframe>`;
+    }else if(tipo==='Evaluacion'){
+        cargarEvaluacion(id);
     }
 }
 function cargarCalificaciones(){
