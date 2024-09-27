@@ -166,11 +166,12 @@ nav h4:hover{
     align-items: flex-start;
     flex-wrap: wrap;
 }
-    #unidades div{
+    #unidades > div{
         margin: 20px;
         border: 1px solid black;
         box-shadow: 10px 4px 4px rgb(49, 49, 49, 0.3);
         flex-wrap: wrap;
+        border-radius: 10px;
     }
     #listado_unidades{
         width: 30%;
@@ -211,9 +212,9 @@ nav h4:hover{
         cursor: pointer;
         text-decoration: underline;
     }
+    
     #visualizar_unidades{
         width: 60%;
-        height: 500px;
         background-color: rgb(241, 243, 254);
         display: flex;
         justify-content: center;
