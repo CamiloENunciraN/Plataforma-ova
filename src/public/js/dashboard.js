@@ -122,6 +122,15 @@ function verContenido(link, tipo , id){
                         allowfullscreen></iframe>`;
     }else if(tipo==='Evaluacion'){
         cargarEvaluacion(id);
+    }else if(tipo==='Presentacion'){
+        div.innerHTML = `<iframe src="${link}" frameborder="0" 
+                        width="960" height="569" allowfullscreen="true" 
+                        mozallowfullscreen="true" 
+                        webkitallowfullscreen="true"></iframe>`;
+    }else if(tipo==='Actividad'){
+        div.innerHTML = `<iframe style="max-width:100%" 
+        src="${link}" 
+        width="500" height="380" frameborder="0" allowfullscreen></iframe>`;
     }
 }
 function cargarCalificaciones(){

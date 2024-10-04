@@ -17,10 +17,17 @@ function cargarEvaluacion(id){
 function renderizarPreguntas(preguntas){
     let cad='';
     for(let i = 0 ; i < preguntas.length ; i++){
+        //para saber si hay imagen
+        let imagen = "";
+        if(preguntas[i].imagen !== ""){
+            imagen = `<img src="${preguntas[i].imagen}" alt="Imagen"/>`;
+        }
+        //renderiza la pregunta
         if(preguntas[i].tipo === 'Seleccion Multiple'){
             cad += `<div id="pregunta_${i+1}" class="pregunta_seleccion_multiple pregunta">
                         <span>Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
                         <p>${preguntas[i].enunciado}</p>
+                        ${imagen}
                         <input type="radio" id="option1${i+1}" name="${i+1}" value="${preguntas[i].opcion1}">
                         <label for="option1${i+1}">${preguntas[i].opcion1}</label><br>
                         <input type="radio" id="option2${i+1}" name="${i+1}" value="${preguntas[i].opcion2}">
@@ -34,6 +41,7 @@ function renderizarPreguntas(preguntas){
             cad += `<div id="pregunta_${i+1}" class="pregunta_falso_verdadero pregunta">
                         <span>Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
                         <p>${preguntas[i].enunciado}</p>
+                        ${imagen}
                         <input type="radio" id="option1${i+1}" name="${i+1}" value="${preguntas[i].opcion1}">
                         <label for="option1${i+1}">${preguntas[i].opcion1}</label><br>
                         <input type="radio" id="option2${i+1}" name="${i+1}" value="${preguntas[i].opcion2}">
@@ -48,6 +56,7 @@ function renderizarPreguntas(preguntas){
             cad += `<div id="pregunta_${i+1}" class="pregunta_ordene pregunta">
                         <span>Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
                         <p>${preguntas[i].enunciado}</p>
+                        ${imagen}
                         <div id="respuestas_${i+1}" class="ordene_respuestas"></div>
                         <div id="palabras_${i+1}">${botones}</div>
                     </div>`;
@@ -70,29 +79,3 @@ function cambiarSeccion(boton, numeroPregunta){
         boton.remove();
     }
 }
-/*
-function renderArreglo (array, div) {
-	const seccion = document.getElementById(div);
-	seccion.innerHTML = '';
-	if(array.length === 0 && div === 'respuestas'){
-		seccion.innerText = 'Click en la palabra que quieras agregar.';
-	}
-	for (let i = 0; i < array.length; i++) {
-		seccion.innerHTML += `<button value="${div}" onclick="cambiarSeccion(this)">${array[i]}</button>`;
-	}
-}
-
-function cambiarSeccion(boton){
-	if(boton.value === 'palabras'){
-		respuestas.push(boton.innerText);
-		let indexToRemove = palabras.indexOf(boton.innerText);
-		palabras.splice(indexToRemove, 1);
-	}else{
-		palabras.push(boton.innerText);
-		let indexToRemove = respuestas.indexOf(boton.innerText);
-		respuestas.splice(indexToRemove, 1);
-	}
-	renderArreglo(palabras, 'palabras');
-	renderArreglo(respuestas, 'respuestas');
-}
-    */

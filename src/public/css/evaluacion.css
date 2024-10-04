@@ -28,6 +28,11 @@
 .pregunta_ordene p{
 	width: 100%;
 }
+.pregunta_ordene img{
+	width: auto;
+	max-height: 200px;
+	border-radius: 10px;
+}
 .pregunta_ordene div{
 	width: 100%;
 	min-height: 50px;

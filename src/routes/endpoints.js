@@ -39,7 +39,7 @@ app.route("/bibliografia/curso/:curso").get(getBibliografiaCurso);
 
 const getContenidoCurso = (request, response) => {
     const curso = request.params.curso;
-    connection.query("SELECT u.nombre AS unidad, u.numero, ct.nombre As contenido, ct.id , ct.link , ct.tipo FROM Curso c, Unidad u, Contenido ct WHERE c.id=u.id_curso AND u.id=ct.id_unidad AND c.nombre=?",
+    connection.query("SELECT u.nombre AS unidad, u.orden, ct.nombre As contenido, ct.id , ct.link , ct.tipo FROM Curso c, Unidad u, Contenido ct WHERE c.id=u.id_curso AND u.id=ct.id_unidad AND c.nombre=? ORDER BY u.orden, ct.orden ASC ",
     [curso], 
     (error, results) => {
         if(error){
