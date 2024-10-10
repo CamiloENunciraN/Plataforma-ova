@@ -6,6 +6,7 @@ dotenv.config();
 
 //conexión con la base de datos
 const {connection} = require("./../configDB/config.db");
+const { NEWDATE } = require("mysql/lib/protocol/constants/types");
 
 const getInfoCurso = (request, response) => {
     const curso = request.params.curso;
@@ -53,6 +54,54 @@ const getContenidoCurso = (request, response) => {
 //ruta
 app.route("/contenido/curso/:curso").get(getContenidoCurso);
 
+const getContenidoInicio = (request, response) => {
+    const id = request.params.id;
+    const usuario = request.params.usuario;
+    const fecha = new Date();
+    connection.query("INSERT INTO ContenidosXusuario (id_contenido, correo_usuario, fecha_inicio) VALUES (? , ?, ?)",
+    [ id, usuario, fecha], 
+    (error, results) => {
+        if(error){
+            response.status(200).json({'msg':'Ha ocurrido un error'});
+        }else{
+            response.status(200).json({'msg':'Insercion realizada'});
+        }
+    });
+};
+//ruta
+app.route("/contenido/inicio/:id/:usuario").get(getContenidoInicio);
+
+const getContenidoFin = (request, response) => {
+    const id = request.params.id;
+    const usuario = request.params.usuario;
+    const fecha = new Date();
+    connection.query("UPDATE ContenidosXusuario SET fecha_finalizacion = ? WHERE correo_usuario=? AND id_contenido = ?",
+    [fecha, usuario, id, ], 
+    (error, results) => {
+        if(error){
+            response.status(200).json({'msg':'Ha ocurrido un error'});
+        }else{
+            response.status(200).json({'msg':'Insercion realizada'});
+        }
+    });
+};
+//ruta
+app.route("/contenido/fin/:id/:usuario").get(getContenidoFin);
+
+const getFrases = (request, response) => {
+    connection.query("SELECT * FROM Frase ORDER BY RAND()LIMIT 1;",
+    (error, results) => {
+        if(error){
+            response.status(200).json({'msg':'Ha ocurrido un error'});
+        }else{
+            response.status(200).json({'msg':'Insercion realizada',
+                                        'results':results});
+        }
+    });
+};
+//ruta
+app.route("/frases").get(getFrases);
+
 const getCalificaciones = (request, response) => {
     const curso = request.params.curso;
     const usuario = request.params.usuario;
@@ -85,23 +134,7 @@ const getRecursos = (request, response) => {
 };
 //ruta
 app.route("/recursos/:curso").get(getRecursos);
-/*
-const getEvaluacion = (request, response) => {
-    const id = request.params.id;
-    connection.query("SELECT e.id AS id_evaluacion, e.nombre, e.descripcion, p.id AS id_pregunta, p.enunciado, p.opcion1, p.opcion2, p.opcion3, p.opcion4, p.tema, p.tipo, p.imagen FROM Evaluacion e, Pregunta p WHERE e.id=p.id_evaluacion AND e.id_contenido=?",
-    [id], 
-    (error, results) => {
-        if(error){
-            response.status(200).json({'msg':'Ha ocurrido un error'});
-        }else{
-            response.status(200).json({'msg':'Busqueda realizada',
-                                        'results':results});
-        }
-    });
-};
-//ruta
-app.route("/evaluacion/cargar/:id").get(getEvaluacion);
-*/
+
 const getEvaluacion = (request, response) => {
     const id = request.params.id;
     connection.query("SELECT id, nombre, descripcion FROM Evaluacion WHERE id_contenido=?",

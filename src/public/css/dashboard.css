@@ -228,8 +228,17 @@ nav h4:hover{
         height: 500px;
         border-radius: 10px;
     }
-    #visualizar_unidades h1, h2 {
+    #visualizar_unidades h1 {
         width: 70%;
+        background-color: white;
+        border-radius: 10px;
+        margin: 20px;
+        font-style: italic;
+        padding: 10px;
+        border: 1px solid grey;
+    }
+    #visualizar_unidades h2 {
+        width: 30%;
         background-color: white;
         border-radius: 10px;
         margin: 20px;
@@ -240,6 +249,7 @@ nav h4:hover{
     #visualizar_unidades img{
         width: 200px;
         height: 200px;
+        border-radius: 10px;
     }
 #bibliografias{
     width: 95%;
@@ -269,7 +279,7 @@ nav h4:hover{
         background-repeat: no-repeat;
         background-size: contain;
         width: 90%;
-        height: 80%;
+        height: 90%;
         box-sizing: border-box;
     }
     .libro img{
@@ -277,6 +287,9 @@ nav h4:hover{
         height: 185px;
         margin-left: 25% ;
         margin-top: 4%;
+    }
+    .libro h4{
+        height: 10%;
     }
 #calificaciones{
     width: 95%;

@@ -26,8 +26,13 @@ document.getElementById('formIniciarSesion').addEventListener('submit', async (e
         notificacion.style.backgroundColor = 'red';
         boton.disabled=false;
     }else{
-        localStorage.setItem('correo', data.results[0].correo);
-        localStorage.setItem('rol', data.results[0].rol);
-        location.href='/public/html/dashboard.html';
+      localStorage.setItem('correo', data.results[0].correo);
+      localStorage.setItem('rol', data.results[0].rol);
+        if(data.results[0].rol==="estudiante"){
+          location.href='/public/html/dashboard.html';
+        }else if(data.results[0].rol==="tutor"){
+          location.href='/public/html/dashboard_tutor.html';
+        }
+
     }
   });

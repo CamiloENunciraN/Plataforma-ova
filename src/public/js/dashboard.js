@@ -5,6 +5,7 @@ function cargar(){
     document.getElementById('bienvenida').innerHTML= 'Bienvenido: '+usuario[0];
     document.getElementById('rol').innerHTML = 'Rol: '+localStorage.getItem('rol');
     cargarCurso();
+    frasesDelDia();
 }
 //trae la informacion del curso
 function cargarCurso(){
@@ -74,8 +75,6 @@ function cargarContenido(){
   .then(response => response.json())
   .then(data => {
     //procesamiento respuesta
-    //console.log(data);
-    //console.log(obtenerUnidades(data.results));
     let unidades = obtenerUnidades(data.results);
     const div = document.getElementById('listado_unidades');
     div.innerHTML='';
@@ -119,20 +118,55 @@ function verContenido(link, tipo , id){
                         allow="accelerometer; autoplay; clipboard-write; 
                         encrypted-media; gyroscope; picture-in-picture; 
                         web-share" referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen></iframe>`;
+                        allowfullscreen></iframe>
+                        <button id="terminarContenido" onclick="contenidoCompletado(${id})" > Contenido Completado</button>`;
     }else if(tipo==='Evaluacion'){
         cargarEvaluacion(id);
     }else if(tipo==='Presentacion'){
         div.innerHTML = `<iframe src="${link}" frameborder="0" 
                         width="960" height="569" allowfullscreen="true" 
                         mozallowfullscreen="true" 
-                        webkitallowfullscreen="true"></iframe>`;
+                        webkitallowfullscreen="true"></iframe>
+                        <button id="terminarContenido" onclick="contenidoCompletado(${id})" > Contenido Completado</button>`;
     }else if(tipo==='Actividad'){
         div.innerHTML = `<iframe style="max-width:100%" 
         src="${link}" 
-        width="500" height="380" frameborder="0" allowfullscreen></iframe>`;
+        width="500" height="380" frameborder="0" allowfullscreen></iframe>
+        <button id="terminarContenido" onclick="contenidoCompletado(${id})" > Contenido Completado</button>`;
     }
+    //enviar fetch que inicio la actividad
+    let usuario = localStorage.getItem('correo');
+    fetch(`/contenido/inicio/${id}/${usuario}`)
+    .then(response => response.json())
+    .then(data => {
+      //procesamiento respuesta "no hace nada"
+    })
+    .catch(error => console.error('Error:', error));
 }
+
+function contenidoCompletado(id){
+    let usuario = localStorage.getItem('correo');
+    //enviar fetch que termino la actividad
+    fetch(`/contenido/fin/${id}/${usuario}`)
+    .then(response => response.json())
+    .then(data => {
+      //procesamiento respuesta "no hace nada" enviar al siguiente
+      frasesDelDia();
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function frasesDelDia(){
+    fetch(`/frases`)
+    .then(response => response.json())
+    .then(data => {
+      const div = document.getElementById('visualizar_unidades');
+      div.innerHTML = `<h1>${data.results[0].frase}</h1>
+                         <img src="${data.results[0].imagen}" alt="Imagen" title="Imagen"/>
+                        <h2>${data.results[0].autor}</h2>`;
+    })
+}
+
 function cargarCalificaciones(){
     const div = document.getElementById('calificaciones');
     let usuario = localStorage.getItem('correo');
