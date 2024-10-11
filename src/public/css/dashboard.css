@@ -403,6 +403,49 @@ nav h4:hover{
     #recursos table tbody tr:nth-child(even) {
         background: #f0effd;
     }
+#estudiantes{
+    width: 95%;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+    #estudiantes table{
+        width: 70%;
+        margin: 20px;
+        border: 1px solid black;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+    #estudiantes th{
+        background-color: #7bbbfb;
+        border: 1px solid black;
+    }
+    #estudiantes tr{
+        height: 50px;
+    }
+    #estudiantes td{
+        text-align: center;
+    }
+    #estudiantes .link{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    #estudiantes .link:hover{
+        cursor: pointer;
+        text-decoration: underline;
+        color: gray;
+    }
+    #estudiantes table tbody tr:nth-child(odd) {
+        background: #ffe0e0;
+    }
+    #estudiantes table tbody tr:nth-child(even) {
+        background: #f0effd;
+    }
 footer{
     margin: 10px; 
 }

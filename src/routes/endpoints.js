@@ -119,6 +119,23 @@ const getCalificaciones = (request, response) => {
 //ruta
 app.route("/calificaciones/:curso/:usuario").get(getCalificaciones);
 
+const getEstudiantes = (request, response) => {
+    const curso = request.params.curso;
+    connection.query("SELECT Usuario.correo, Usuario.nombre, Usuario.creacion_cuenta, Usuario.ultima_sesion FROM Usuario INNER JOIN UsuariosXCurso ON Usuario.correo=UsuariosXCurso.correo_usuario INNER JOIN Curso ON UsuariosXCurso.id_curso=Curso.id WHERE Usuario.rol='estudiante' AND Curso.nombre=? ",
+    [curso], 
+    (error, results) => {
+        if(error){
+            console.log(error);
+            response.status(200).json({'msg':'Ha ocurrido un error'});
+        }else{
+            response.status(200).json({'msg':'Busqueda realizada',
+                                        'results':results});
+        }
+    });
+};
+//ruta
+app.route("/estudiantes/:curso").get(getEstudiantes);
+
 const getRecursos = (request, response) => {
     const curso = request.params.curso;
     connection.query("SELECT r.nombre, r.link FROM Recurso r, Curso c WHERE c.id=r.id_curso AND c.nombre=?",
