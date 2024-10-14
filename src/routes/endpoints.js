@@ -136,6 +136,24 @@ const getEstudiantes = (request, response) => {
 //ruta
 app.route("/estudiantes/:curso").get(getEstudiantes);
 
+const getSeguimientoEstudiante = (request, response) => {
+    const curso = request.params.curso;
+    const correo = request.params.correo;
+    connection.query("SELECT c.nombre, c.tipo, cu.fecha_inicio, cu.fecha_finalizacion FROM Curso INNER JOIN UsuariosXCurso uc ON Curso.id=uc.id_curso  INNER JOIN Usuario u ON uc.correo_usuario=u.correo INNER JOIN ContenidosXusuario cu ON u.correo=cu.correo_usuario INNER JOIN Contenido c ON cu.id_contenido=c.id WHERE Curso.nombre=? AND u.correo=?",
+    [curso, correo], 
+    (error, results) => {
+        if(error){
+            console.log(error);
+            response.status(200).json({'msg':'Ha ocurrido un error'});
+        }else{
+            response.status(200).json({'msg':'Busqueda realizada',
+                                        'results':results});
+        }
+    });
+};
+//ruta
+app.route("/estudiante/:curso/:correo").get(getSeguimientoEstudiante);
+
 const getRecursos = (request, response) => {
     const curso = request.params.curso;
     connection.query("SELECT r.nombre, r.link FROM Recurso r, Curso c WHERE c.id=r.id_curso AND c.nombre=?",
