@@ -26,6 +26,7 @@ document.getElementById('formIniciarSesion').addEventListener('submit', async (e
         notificacion.style.backgroundColor = 'red';
         boton.disabled=false;
     }else{
+      localStorage.setItem('nombre', data.results[0].nombre);
       localStorage.setItem('correo', data.results[0].correo);
       localStorage.setItem('rol', data.results[0].rol);
         if(data.results[0].rol==="estudiante"){

@@ -24,7 +24,7 @@ function cargarEstudiantes(){
         let fechac = new Date( data.results[i].creacion_cuenta) ;
         let fechas = new Date( data.results[i].ultima_sesion) ;
         cad +=`<tr>
-                    <td  onclick="cargarDatosEstudiante('${data.results[i].correo}', '${data.results[i].nombre}' , '${fechac}', '${fechas}')" class="link" title="Ver informacion del estudiante.">${data.results[i].nombre}</td>
+                    <td  onclick="cargarDatosEstudiante('${data.results[i].correo}', '${data.results[i].nombre}' , '${fechac.toLocaleDateString()}', '${fechas.toLocaleDateString()}')" class="link" title="Ver informacion del estudiante.">${data.results[i].nombre}</td>
                     <td>${data.results[i].correo}</td>
                     <td>${fechac.toLocaleDateString()}</td>
                     <td>${fechas.toLocaleDateString()}</td>

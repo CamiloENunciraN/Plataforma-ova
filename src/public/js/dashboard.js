@@ -1,8 +1,8 @@
 cargar();
 
 function cargar(){
-    let usuario = localStorage.getItem('correo').split("@");
-    document.getElementById('bienvenida').innerHTML= 'Bienvenido: '+usuario[0];
+    let usuario = localStorage.getItem('nombre');
+    document.getElementById('bienvenida').innerHTML= 'Bienvenido: '+usuario;
     document.getElementById('rol').innerHTML = 'Rol: '+localStorage.getItem('rol');
     cargarCurso();
     frasesDelDia();
@@ -276,6 +276,7 @@ function ocultarDiv(target){
 //cerrar sesion - salir
 /*********************************************************/
 document.getElementById('salir').addEventListener('click',()=>{
+    localStorage.removeItem('nombre');
     localStorage.removeItem('correo');
     localStorage.removeItem('rol');
     location.href='/';

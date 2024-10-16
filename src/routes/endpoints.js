@@ -197,7 +197,7 @@ app.route("/evaluacion/cargar/:id").get(getEvaluacion);
 
 const postIngresar = (request, response) => {
     const {usuario, contrasena, rol} = request.body;
-    connection.query("SELECT correo, rol FROM Usuario WHERE correo=? AND contrasena=? AND rol=? ", 
+    connection.query("SELECT nombre, correo, rol FROM Usuario WHERE correo=? AND contrasena=? AND rol=? ", 
     [usuario, contrasena, rol],
     (error, results) => {
         if(error){
@@ -215,6 +215,42 @@ const postIngresar = (request, response) => {
 };
 //ruta
 app.route("/ingresar").post(postIngresar);
+
+const postRegistrar = (request, response) => {
+    const {nombre, correo, contrasena, curso} = request.body;
+    connection.query("INSERT INTO Usuario (nombre, correo, contrasena, rol) VALUES ( ?, ?, ?, ?)", 
+    [nombre, correo , contrasena, "estudiante"],
+    (error, results) => {
+        if(error){
+            console.log(error);
+            response.status(200).json({'msg':'Ha ocurrido un error'});
+        }else{
+            if(results.affectedRows===1){
+                connection.query("SELECT nombre, correo, rol FROM Usuario WHERE correo= ?", 
+                    [correo],
+                    (error, resulta) => {
+                        if(error){
+                            response.status(200).json({'msg':'Ha ocurrido un error'});
+                        }else{
+                            response.status(200).json({'msg':'Usuario valido',
+                                                        'results':resulta});
+                        }
+                    });
+            }else{
+                response.status(200).json({'msg':'Ha ocurrido un error'});
+            }
+        }
+        connection.query("INSERT INTO UsuariosXCurso (id_curso, correo_usuario) VALUES (?, ?)", 
+            [curso, correo],
+            (error, results) => {
+                if(error){
+                    console.log(results);
+                }
+        });
+    });
+};
+//ruta
+app.route("/registrar").post(postRegistrar);
 
 
 const delCarta = (request, response) => {
