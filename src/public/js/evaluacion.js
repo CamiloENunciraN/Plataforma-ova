@@ -1,5 +1,5 @@
-function cargarEvaluacion(id){
-//peticion de datos
+function cargarEvaluacion(id , indicadorActual){//pasarle correoo y curso para guardar en evaluacionesXusuario
+//peticion de datos registrarlo en usuarios x evaluaciones y traer el id para despues update la calificacion
     fetch(`/evaluacion/cargar/${id}`)
     .then(response => response.json())
     .then(data => {
@@ -9,7 +9,7 @@ function cargarEvaluacion(id){
      div.innerHTML = `<h1>${data.evaluacion[0].nombre}</h1>
                         <p>${data.evaluacion[0].descripcion}</p>`;
      div.innerHTML += renderizarPreguntas( data.preguntas ) ;
-     div.innerHTML += `<button id="enviarEvaluacion" value="Enviar" onclick="enviarEvaluacion()" title="Enviar las respuestas de la evaluacion">Enviar evaluacion</button>`;
+     div.innerHTML += `<button id="enviarEvaluacion" value="Enviar" onclick="enviarEvaluacion('${id}', '${indicadorActual}')" title="Enviar las respuestas de la evaluacion">Enviar evaluacion</button>`;
     })
     .catch(error => console.error('Error:', error));
 }
@@ -65,8 +65,9 @@ function renderizarPreguntas(preguntas){
     return cad;
 }
 
-function enviarEvaluacion(){
+function enviarEvaluacion(id , indicadorActual){
     alert('');
+    //respuesta de ealuacion y pasar al siguiente contenido
 }
 function cambiarSeccion(boton, numeroPregunta){
     if(boton.value === `palabras_${numeroPregunta}`){

@@ -77,6 +77,7 @@ function cargarContenido(){
     //procesamiento respuesta
     let unidades = obtenerUnidades(data.results);
     const div = document.getElementById('listado_unidades');
+    let cont=0;
     div.innerHTML='';
     let cad = `<h1>Unidades</h1>`;
     for (let i = 0; i < unidades.length; i++) {
@@ -84,7 +85,8 @@ function cargarContenido(){
         //genera una cadena con la lista de contenidos de una unidad
         for (let x = 0; x < data.results.length; x++) {
             if(data.results[x].unidad===unidades[i]){
-                contenido +=`<li onclick=verContenido('${data.results[x].link}','${data.results[x].tipo}','${data.results[x].id}')>${data.results[x].contenido}</li>`;
+                contenido +=`<li id="cont_${cont}" onclick=verContenido('${data.results[x].link}','${data.results[x].tipo}','${data.results[x].id}','${cont}')>${data.results[x].contenido}</li>`;
+            cont++;
             }
         }
         cad += `<details>
@@ -110,7 +112,7 @@ function obtenerUnidades(data){
     return uni;
 }
 //cargar el contenido del contenido xd
-function verContenido(link, tipo , id){
+function verContenido(link, tipo , id, indicadorActual){
     const div = document.getElementById('visualizar_unidades');
     if(tipo==='Video'){
         div.innerHTML = `<iframe src="${link}" 
@@ -119,20 +121,24 @@ function verContenido(link, tipo , id){
                         encrypted-media; gyroscope; picture-in-picture; 
                         web-share" referrerpolicy="strict-origin-when-cross-origin" 
                         allowfullscreen></iframe>
-                        <button id="terminarContenido" onclick="contenidoCompletado(${id})" > Contenido Completado</button>`;
+                        <button id="terminarContenido" onclick="contenidoCompletado('${id}', '${indicadorActual}')" > Contenido Completado</button>`;
     }else if(tipo==='Evaluacion'){
-        cargarEvaluacion(id);
+        div.innerHTML=`<div id="evaluacion_advertencia">
+                        <h1>Atencion</h1>
+                        <p>Una vez iniciada la evaluacion, no salga hasta que haya completado y enviado los resultados, asegurese de tener la disponibilidad y el tiempo para la realizacion de la misma. En caso de estar preparado click en el boton</p>
+                        <button onclick="cargarEvaluacion('${id}', '${indicadorActual}')" >Iniciar Evaluacion</button>
+                    </div>`;
     }else if(tipo==='Presentacion'){
         div.innerHTML = `<iframe src="${link}" frameborder="0" 
                         width="960" height="569" allowfullscreen="true" 
                         mozallowfullscreen="true" 
                         webkitallowfullscreen="true"></iframe>
-                        <button id="terminarContenido" onclick="contenidoCompletado(${id})" > Contenido Completado</button>`;
+                        <button id="terminarContenido" onclick="contenidoCompletado('${id}', '${indicadorActual}')" > Contenido Completado</button>`;
     }else if(tipo==='Actividad'){
         div.innerHTML = `<iframe style="max-width:100%" 
         src="${link}" 
         width="500" height="380" frameborder="0" allowfullscreen></iframe>
-        <button id="terminarContenido" onclick="contenidoCompletado(${id})" > Contenido Completado</button>`;
+        <button id="terminarContenido" onclick="contenidoCompletado('${id}', '${indicadorActual}')" > Contenido Completado</button>`;
     }
     //enviar fetch que inicio la actividad
     let usuario = localStorage.getItem('correo');
@@ -144,14 +150,15 @@ function verContenido(link, tipo , id){
     .catch(error => console.error('Error:', error));
 }
 
-function contenidoCompletado(id){
+function contenidoCompletado(id, indicadorActual){
     let usuario = localStorage.getItem('correo');
+    let siguiente = parseInt(indicadorActual)+1;
     //enviar fetch que termino la actividad
     fetch(`/contenido/fin/${id}/${usuario}`)
     .then(response => response.json())
     .then(data => {
-      //procesamiento respuesta "no hace nada" enviar al siguiente
-      frasesDelDia();
+      //procesamiento  enviar al siguiente
+      document.getElementById('cont_'+siguiente).click();
     })
     .catch(error => console.error('Error:', error));
 }

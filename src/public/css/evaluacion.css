@@ -1,4 +1,13 @@
-   
+#evaluacion_advertencia{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}   
+#evaluacion_advertencia h1, p{
+    width: 50%;
+    margin: 20px;
+}   
 .pregunta{
     width: 100%;
     text-align: left;
