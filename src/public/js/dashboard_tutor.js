@@ -12,6 +12,7 @@ function cargarEstudiantes(){
   .then(response => response.json())
   .then(data => {
     //procesamiento respuesta
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     let cad = `<h1>Estudiantes</h1>
                 <table>
                     <tr>
@@ -26,8 +27,8 @@ function cargarEstudiantes(){
         cad +=`<tr>
                     <td  onclick="cargarDatosEstudiante('${data.results[i].correo}', '${data.results[i].nombre}' , '${fechac.toLocaleDateString()}', '${fechas.toLocaleDateString()}')" class="link" title="Ver informacion del estudiante.">${data.results[i].nombre}</td>
                     <td>${data.results[i].correo}</td>
-                    <td>${fechac.toLocaleDateString()}</td>
-                    <td>${fechas.toLocaleDateString()}</td>
+                    <td>${fechac.toLocaleDateString('es-Es', options)}</td>
+                    <td>${fechas.toLocaleDateString('es-Es', options)}</td>
                 </tr>`;
     }
     cad +=`</table>`;
@@ -44,6 +45,7 @@ function cargarDatosEstudiante(correo, nombre, fechac, fechas){
   .then(response => response.json())
   .then(data => {
     //procesamiento respuesta
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     let cad = `<h1>Seguimiento Estudiante</h1>
                 <table>
                     <tr>
@@ -70,11 +72,12 @@ function cargarDatosEstudiante(correo, nombre, fechac, fechas){
     for(let i=0; i < data.results.length; i++){
         let fechai = new Date( data.results[i].fecha_inicio) ;
         let fechaf = new Date( data.results[i].fecha_finalizacion) ;
+
         cad +=`<tr>
                     <td>${data.results[i].nombre}</td>
                     <td>${data.results[i].tipo}</td>
-                    <td>${fechai.toLocaleDateString()}</td>
-                    <td>${fechaf.toLocaleDateString()}</td>
+                    <td>${fechai.toLocaleDateString('es-Es', options)}</td>
+                    <td>${fechaf.toLocaleDateString('es-Es', options)}</td>
                 </tr>`;
     }
     cad +=`</table>`;
@@ -92,6 +95,7 @@ function cargarEvaluacionesEstudiante(correo){
   .then(response => response.json())
   .then(data => {
     //procesamiento respuesta
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     let suma = 0;
     let cont = 0;
     let cad = `<h1>Calificaciones</h1>
@@ -102,6 +106,7 @@ function cargarEvaluacionesEstudiante(correo){
                         <th id="tabla_calificacion">Calificacion</th>
                     </tr>`;
     for(let i=0; i < data.results.length; i++){
+        let fechaR= new Date(data.results[i].fecha_realizacion);
         let color ='';
         if(data.results[i].calificacion<5){
             color = 'cal_rojo';
@@ -112,7 +117,7 @@ function cargarEvaluacionesEstudiante(correo){
         }
         cad +=`<tr title="${data.results[i].descripcion}">
                     <td>${data.results[i].nombre}</td>
-                    <td>${data.results[i].fecha_realizacion.toLocaleString()}</td>
+                    <td>${fechaR.toLocaleString('es-Es', options)}</td>
                     <td><div class="ind_calificacion ${color}">${data.results[i].calificacion}</div></td>
                 </tr>`;
         suma += data.results[i].calificacion;

@@ -171,29 +171,61 @@ const getRecursos = (request, response) => {
 app.route("/recursos/:curso").get(getRecursos);
 
 const getEvaluacion = (request, response) => {
-    const id = request.params.id;
-    connection.query("SELECT id, nombre, descripcion FROM Evaluacion WHERE id_contenido=?",
-    [id], 
-    (error, results) => {
-        if(error){
-            response.status(200).json({'msg':'Ha ocurrido un error'});
-        }else{
-            connection.query("SELECT id, enunciado, opcion1, opcion2, opcion3, opcion4, tema, tipo, imagen  FROM Pregunta WHERE id_evaluacion=?",
-                [results[0].id], 
-                (error, resultas) => {
-                    if(error){
-                        response.status(200).json({'msg':'Ha ocurrido un error'});
-                    }else{
-                        response.status(200).json({'msg':'Busqueda realizada',
-                                                    'evaluacion':results,
-                                                    'preguntas':resultas});
-                    }
-                });
-        }
-    });
+    const id_contenido = request.params.id;
+    const correo = request.params.correo;
+    const fecha =new Date();
+
+    // busca el id de la evaluacion
+    connection.query("SELECT id FROM Evaluacion WHERE id_contenido=?",
+           [id_contenido], 
+           (error, r) => {
+               if(error){
+                   response.status(200).json({'msg':'Ha ocurrido un error'});
+               }else{
+                    // inserta la evaluacion
+                    connection.query("INSERT INTO EvaluacionesXusuario (id_evaluacion, correo_usuario, fecha_realizacion) VALUES (?,?,?)",
+                        [r[0].id,correo,fecha], 
+                        (error, res) => {
+                            if(error){
+                                console.log(error);
+                                response.status(200).json({'msg':'Ha ocurrido un error'});
+                            }else{
+                                //consulta la evaluacion y preguntas
+                                connection.query("SELECT id, nombre, descripcion, enunciado FROM Evaluacion WHERE id_contenido=?",
+                                [id_contenido], 
+                                (error, results) => {
+                                    if(error){
+                                        response.status(200).json({'msg':'Ha ocurrido un error'});
+                                    }else{
+                                        connection.query("SELECT id, enunciado, opcion1, opcion2, opcion3, opcion4, tema, tipo, imagen  FROM Pregunta WHERE id_evaluacion=?",
+                                            [results[0].id], 
+                                            (error, resultas) => {
+                                                if(error){
+                                                    response.status(200).json({'msg':'Ha ocurrido un error'});
+                                                }else{
+                                                    response.status(200).json({'msg':'Busqueda realizada',
+                                                                                'evaluacion':results,
+                                                                                'preguntas':resultas,
+                                                                                'fecha':fecha});
+                                                }
+                                            });
+                                    }
+                                });
+                            }
+                    });
+               }
+           });
+
+
 };
 //ruta
-app.route("/evaluacion/cargar/:id").get(getEvaluacion);
+app.route("/evaluacion/cargar/:id/:correo").get(getEvaluacion);
+
+const postGuardarEvaluacion = (request, response) => {
+
+}
+//ruta
+app.route("/evaluacion/guardar/:id/:correo/:fecha").post(postGuardarEvaluacion);
 
 const postIngresar = (request, response) => {
     const {usuario, contrasena, rol} = request.body;

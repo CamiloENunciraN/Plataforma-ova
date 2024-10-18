@@ -306,7 +306,7 @@ nav h4:hover{
         margin: 20px;
     }
     #calificaciones table{
-        width: 70%;
+        width: 90%;
         margin: 20px;
         border: 1px solid black;
         border-spacing: 0;
@@ -415,7 +415,7 @@ nav h4:hover{
     flex-wrap: wrap;
 }
     #estudiantes table{
-        width: 70%;
+        width: 90%;
         margin: 20px;
         border: 1px solid black;
         border-spacing: 0;

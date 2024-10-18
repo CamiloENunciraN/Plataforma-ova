@@ -1,13 +1,16 @@
 function cargarEvaluacion(id , indicadorActual){//pasarle correoo y curso para guardar en evaluacionesXusuario
 //peticion de datos registrarlo en usuarios x evaluaciones y traer el id para despues update la calificacion
-    fetch(`/evaluacion/cargar/${id}`)
+    let correo = localStorage.getItem('correo');
+    fetch(`/evaluacion/cargar/${id}/${correo}`)
     .then(response => response.json())
     .then(data => {
      //procesamiento respuesta
-     console.log(data);
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+     const f= new Date(data.fecha);
      const div = document.getElementById('visualizar_unidades');
      div.innerHTML = `<h1>${data.evaluacion[0].nombre}</h1>
-                        <p>${data.evaluacion[0].descripcion}</p>`;
+                        <h4>fecha de realizacion: ${f.toLocaleDateString('es-Es', options)}</h4>
+                        <p>${data.evaluacion[0].enunciado}</p>`;
      div.innerHTML += renderizarPreguntas( data.preguntas ) ;
      div.innerHTML += `<button id="enviarEvaluacion" value="Enviar" onclick="enviarEvaluacion('${id}', '${indicadorActual}')" title="Enviar las respuestas de la evaluacion">Enviar evaluacion</button>`;
     })

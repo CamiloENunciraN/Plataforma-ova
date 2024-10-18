@@ -186,6 +186,7 @@ function cargarCalificaciones(){
     //procesamiento respuesta
     let suma = 0;
     let cont = 0;
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     let cad = `<h1>Calificaciones</h1>
                 <table>
                     <tr>
@@ -194,6 +195,7 @@ function cargarCalificaciones(){
                         <th id="tabla_calificacion">Calificacion</th>
                     </tr>`;
     for(let i=0; i < data.results.length; i++){
+        let fechaR= new Date(data.results[i].fecha_realizacion);
         let color ='';
         if(data.results[i].calificacion<5){
             color = 'cal_rojo';
@@ -204,7 +206,7 @@ function cargarCalificaciones(){
         }
         cad +=`<tr title="${data.results[i].descripcion}">
                     <td>${data.results[i].nombre}</td>
-                    <td>${data.results[i].fecha_realizacion.toLocaleString()}</td>
+                    <td>${fechaR.toLocaleDateString('es-Es', options)}</td>
                     <td><div class="ind_calificacion ${color}">${data.results[i].calificacion}</div></td>
                 </tr>`;
         suma += data.results[i].calificacion;
