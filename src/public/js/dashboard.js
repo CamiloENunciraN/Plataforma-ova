@@ -115,6 +115,7 @@ function obtenerUnidades(data){
 function verContenido(link, tipo , id, indicadorActual){
     const div = document.getElementById('visualizar_unidades');
     if(tipo==='Video'){
+        div.style.width="60%";
         div.innerHTML = `<iframe src="${link}" 
                         title="YouTube video player" frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; 
@@ -123,22 +124,33 @@ function verContenido(link, tipo , id, indicadorActual){
                         allowfullscreen></iframe>
                         <button id="terminarContenido" onclick="contenidoCompletado('${id}', '${indicadorActual}')" > Contenido Completado</button>`;
     }else if(tipo==='Evaluacion'){
+        div.style.width="60%";
         div.innerHTML=`<div id="evaluacion_advertencia">
                         <h1>Atencion</h1>
                         <p>Una vez iniciada la evaluacion, no salga hasta que haya completado y enviado los resultados, asegurese de tener la disponibilidad y el tiempo para la realizacion de la misma. En caso de estar preparado click en el boton</p>
                         <button onclick="cargarEvaluacion('${id}', '${indicadorActual}')" >Iniciar Evaluacion</button>
                     </div>`;
     }else if(tipo==='Presentacion'){
+        div.style.width="60%";
         div.innerHTML = `<iframe src="${link}" frameborder="0" 
                         width="960" height="569" allowfullscreen="true" 
                         mozallowfullscreen="true" 
                         webkitallowfullscreen="true"></iframe>
                         <button id="terminarContenido" onclick="contenidoCompletado('${id}', '${indicadorActual}')" > Contenido Completado</button>`;
     }else if(tipo==='Actividad'){
+        div.style.width="60%";
         div.innerHTML = `<iframe style="max-width:100%" 
-        src="${link}" 
-        width="500" height="380" frameborder="0" allowfullscreen></iframe>
-        <button id="terminarContenido" onclick="contenidoCompletado('${id}', '${indicadorActual}')" > Contenido Completado</button>`;
+                        src="${link}" 
+                        width="500" height="380" frameborder="0" allowfullscreen></iframe>
+                        <button id="terminarContenido" onclick="contenidoCompletado('${id}', '${indicadorActual}')" > Contenido Completado</button>`;
+    }else if(tipo==='Modelado'){
+        div.style.width="90%";
+        div.innerHTML = `<iframe src="${link}" frameborder="0" 
+                        width="960" height="569" allowfullscreen="true" 
+                        mozallowfullscreen="true" 
+                        webkitallowfullscreen="true"></iframe>
+                        <iframe src="https://online.visual-paradigm.com/app/diagrams/#diagram:proj=0&type=ERDiagram&width=11&height=8.5&unit=inch" frameborder="0" ></iframe>
+                        <button id="terminarContenido" onclick="contenidoCompletado('${id}', '${indicadorActual}')" > Contenido Completado</button>`;
     }
     //enviar fetch que inicio la actividad
     let usuario = localStorage.getItem('correo');
