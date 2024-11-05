@@ -28,7 +28,9 @@ function renderizarPreguntas(preguntas){
         //renderiza la pregunta
         if(preguntas[i].tipo === 'Seleccion Multiple'){
             cad += `<div id="pregunta_${i+1}" class="pregunta_seleccion_multiple pregunta">
-                        <span>Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
+                        <input type="hidden" value="${preguntas[i].id}">
+                        <input type="hidden" value="${preguntas[i].tipo}">
+                        <span >Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
                         <p>${preguntas[i].enunciado}</p>
                         ${imagen}
                         <input type="radio" id="option1${i+1}" name="${i+1}" value="${preguntas[i].opcion1}">
@@ -42,7 +44,9 @@ function renderizarPreguntas(preguntas){
                     </div>`;
         }else if(preguntas[i].tipo === 'Falso Verdadero'){
             cad += `<div id="pregunta_${i+1}" class="pregunta_falso_verdadero pregunta">
-                        <span>Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
+                        <input type="hidden" value="${preguntas[i].id}">
+                        <input type="hidden" value="${preguntas[i].tipo}">
+                        <span > Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
                         <p>${preguntas[i].enunciado}</p>
                         ${imagen}
                         <input type="radio" id="option1${i+1}" name="${i+1}" value="${preguntas[i].opcion1}">
@@ -57,7 +61,9 @@ function renderizarPreguntas(preguntas){
                 botones += `<button value="palabras_${i+1}" onclick="cambiarSeccion(this,'${i+1}')">${palabras[x]}</button>`;
             }
             cad += `<div id="pregunta_${i+1}" class="pregunta_ordene pregunta">
-                        <span>Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
+                        <input type="hidden" value="${preguntas[i].id}">
+                        <input type="hidden" value="${preguntas[i].tipo}">
+                        <span >Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
                         <p>${preguntas[i].enunciado}</p>
                         ${imagen}
                         <div id="respuestas_${i+1}" class="ordene_respuestas"></div>
@@ -69,9 +75,58 @@ function renderizarPreguntas(preguntas){
 }
 
 function enviarEvaluacion(id , indicadorActual){
-    alert('');
+   const datas = validarRespuestas();
+   if(datas !== null){
+        console.log(datas);
+        //enviar los datos
+   }
     //respuesta de ealuacion y pasar al siguiente contenido
 }
+
+function validarRespuestas(){
+    const datas = [];
+        const preguntas = document.getElementsByClassName(`pregunta`);
+        for (let i = 0; i < preguntas.length; i++) {
+            let pregunta = preguntas[i];
+            let preInput = pregunta.getElementsByTagName('input');
+            let preguntaId = preInput[0].value;
+            let preguntaTipo = preInput[1].value;
+            let preguntaRespuesta = "";
+            if(preguntaTipo==='Ordene'){
+                res = document.getElementById(`respuestas_${i+1}`);
+                if(res.innerHTML===""){
+                   alert(`No se ha respondido a la pregunta ${i+1}` ); 
+                   return null;
+                   break;
+                }
+                let botones = res.getElementsByTagName('button');
+                let cad = "";
+                for (let f = 0; f < botones.length; f++) {
+                    cad +=botones[f].innerHTML+" ";
+                }
+                preguntaRespuesta = cad;
+            }else if(preguntaTipo === 'Seleccion Multiple' || preguntaTipo === 'Falso Verdadero'){
+                let checkboxes = pregunta.getElementsByTagName('input');
+                let isChecked = false;
+                for (let f = 0; f < checkboxes.length; f++) {
+                    if (checkboxes[f].checked) {
+                        isChecked = true;
+                        preguntaRespuesta = checkboxes[f].value;
+                        break;
+                    }
+                }
+                if(!isChecked){
+                    alert(`No se ha respondido a la pregunta ${i+1}` ); 
+                    return null;
+                    break;
+                 }
+            }
+            datas.push({'idPregunta': preguntaId, 'resPregunta' : preguntaRespuesta});
+        }
+    return datas;
+}
+
+//funcion para las preguntas de ordenamiento de palabras
 function cambiarSeccion(boton, numeroPregunta){
     if(boton.value === `palabras_${numeroPregunta}`){
         let div = document.getElementById(`respuestas_${numeroPregunta}`);
