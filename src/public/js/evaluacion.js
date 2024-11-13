@@ -12,7 +12,7 @@ function cargarEvaluacion(id , indicadorActual){//pasarle correoo y curso para g
                         <h4>fecha de realizacion: ${f.toLocaleDateString('es-Es', options)}</h4>
                         <p>${data.evaluacion[0].enunciado}</p>`;
      div.innerHTML += renderizarPreguntas( data.preguntas ) ;
-     div.innerHTML += `<button id="enviarEvaluacion" value="Enviar" onclick="enviarEvaluacion('${id}', '${indicadorActual}')" title="Enviar las respuestas de la evaluacion">Enviar evaluacion</button>`;
+     div.innerHTML += `<button id="enviarEvaluacion" value="Enviar" onclick="enviarEvaluacion('${id}', '${indicadorActual}','${data.id_actual_evaluacion}')" title="Enviar las respuestas de la evaluacion">Enviar evaluacion</button>`;
     })
     .catch(error => console.error('Error:', error));
 }
@@ -74,13 +74,30 @@ function renderizarPreguntas(preguntas){
     return cad;
 }
 
-function enviarEvaluacion(id , indicadorActual){
+async function enviarEvaluacion(id , indicadorActual, id_actual_evaluacion){
    const datas = validarRespuestas();
+   let correo = localStorage.getItem('correo');
    if(datas !== null){
         console.log(datas);
-        //enviar los datos
+        //envio form
+        const response = await fetch(`/evaluacion/guardar/${id}/${correo}/${id_actual_evaluacion}`, {
+            method: "POST",
+            body: JSON.stringify(datas),
+            headers: {"Content-Type": "application/json",},
+        });
+        //respuesta
+        const data = await response.json();
+        console.log(data);
+        //proocesamiento respuesta
+        let cad = `<div id="res_evaluacion">
+                        <h1>Has completado la evaluacion</h1>
+                        <h3>Respuestas Correctas: ${data.correctas}</h3>
+                        <h3>Calificacion final: ${data.calificacion}</h3>
+                        <p>Puedes presentar de nuevo la evaluacion si quieres mejorar tus conocimientos</p>
+                    </div>
+                    <button id="terminarContenido" onclick="contenidoCompletado('${id}', '${indicadorActual}')" > Contenido Completado</button>`;
+        document.getElementById("visualizar_unidades").innerHTML = cad ;
    }
-    //respuesta de ealuacion y pasar al siguiente contenido
 }
 
 function validarRespuestas(){

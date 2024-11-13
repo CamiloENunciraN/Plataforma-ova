@@ -190,6 +190,15 @@ const getEvaluacion = (request, response) => {
                                 console.log(error);
                                 response.status(200).json({'msg':'Ha ocurrido un error'});
                             }else{
+
+                        connection.query("SELECT LAST_INSERT_ID() AS id",
+                        (error, res) => {
+                            if(error){
+                                console.log(error);
+                                response.status(200).json({'msg':'Ha ocurrido un error'});
+                            }else{
+
+                                let id_actual_evaluacion = res[0].id;
                                 //consulta la evaluacion y preguntas
                                 connection.query("SELECT id, nombre, descripcion, enunciado FROM Evaluacion WHERE id_contenido=?",
                                 [id_contenido], 
@@ -206,11 +215,16 @@ const getEvaluacion = (request, response) => {
                                                     response.status(200).json({'msg':'Busqueda realizada',
                                                                                 'evaluacion':results,
                                                                                 'preguntas':resultas,
-                                                                                'fecha':fecha});
+                                                                                'fecha':fecha,
+                                                                                'id_actual_evaluacion' : id_actual_evaluacion});
                                                 }
                                             });
+                                        }
+                                    });
+
                                     }
                                 });
+
                             }
                     });
                }
@@ -222,10 +236,49 @@ const getEvaluacion = (request, response) => {
 app.route("/evaluacion/cargar/:id/:correo").get(getEvaluacion);
 
 const postGuardarEvaluacion = (request, response) => {
-
+    const id = request.params.id;
+    const correo = request.params.correo;
+    const id_actual_evaluacion = request.params.id_actual_evaluacion;
+    const respuestas = request.body;
+        connection.query("SELECT p.id_evaluacion, p.id, p.respuesta FROM Pregunta p INNER JOIN Evaluacion e ON e.id = p.id_evaluacion WHERE e.id_contenido = ?",
+        [id], 
+        (error, results) => {
+            if(error){
+                console.log(error);
+                       response.status(200).json({'msg':'Ha ocurrido un error'});
+            }else{
+               //calificando la eva
+                let correctas = 0;
+                let calificacion = 0;
+                let numPreguntas = results.length;
+                let id_evaluacion = 0;
+                results.map(res =>{
+                    id_evaluacion = res.id_evaluacion;
+                    respuestas.map(respt =>{
+                        if(res.id == respt.idPregunta && res.respuesta === respt.resPregunta){
+                            correctas ++;
+                            return;
+                        }
+                    });
+                });
+                //callificacion sobre 10
+                calificacion = ((10/numPreguntas)*correctas);
+                //guardando los resultados
+                connection.query("UPDATE EvaluacionesXusuario SET calificacion = ? WHERE id_evaluacion = ? AND correo_usuario = ? AND id = ?",
+                    [calificacion, id_evaluacion, correo, id_actual_evaluacion], 
+                    (error, resultas) => {
+                        if(error){
+                            console.log(error);
+                            response.status(200).json({'msg':'Ha ocurrido un error'});
+                        }else{
+                            response.status(200).json( {'msg': 'Evaluacion calificada', 'correctas': `${correctas}/${numPreguntas}`, 'calificacion': calificacion});
+                        }
+                    });
+            }
+        });
 }
 //ruta
-app.route("/evaluacion/guardar/:id/:correo/:fecha").post(postGuardarEvaluacion);
+app.route("/evaluacion/guardar/:id/:correo/:id_actual_evaluacion").post(postGuardarEvaluacion);
 
 const postIngresar = (request, response) => {
     const {usuario, contrasena, rol} = request.body;
