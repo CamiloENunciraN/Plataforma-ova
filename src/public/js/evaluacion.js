@@ -33,6 +33,7 @@ function renderizarPreguntas(preguntas){
                         <span >Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
                         <p>${preguntas[i].enunciado}</p>
                         ${imagen}
+                        <br>
                         <input type="radio" id="option1${i+1}" name="${i+1}" value="${preguntas[i].opcion1}">
                         <label for="option1${i+1}">${preguntas[i].opcion1}</label><br>
                         <input type="radio" id="option2${i+1}" name="${i+1}" value="${preguntas[i].opcion2}">
@@ -49,6 +50,7 @@ function renderizarPreguntas(preguntas){
                         <span > Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
                         <p>${preguntas[i].enunciado}</p>
                         ${imagen}
+                        <br>
                         <input type="radio" id="option1${i+1}" name="${i+1}" value="${preguntas[i].opcion1}">
                         <label for="option1${i+1}">${preguntas[i].opcion1}</label><br>
                         <input type="radio" id="option2${i+1}" name="${i+1}" value="${preguntas[i].opcion2}">
@@ -66,8 +68,19 @@ function renderizarPreguntas(preguntas){
                         <span >Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
                         <p>${preguntas[i].enunciado}</p>
                         ${imagen}
+                        <br>
                         <div id="respuestas_${i+1}" class="ordene_respuestas"></div>
                         <div id="palabras_${i+1}">${botones}</div>
+                    </div>`;
+        }else if(preguntas[i].tipo === 'Consulta'){
+            cad += `<div id="pregunta_${i+1}" class="pregunta_consulta">
+                        <input type="hidden" value="${preguntas[i].id}">
+                        <input type="hidden" value="${preguntas[i].tipo}">
+                        <span >Pregunta No. ${i+1} - ${preguntas[i].tipo} </span>
+                        <p>${preguntas[i].enunciado}</p>
+                        ${imagen}
+                        <br>
+                        <textarea id="respuesta_${i+1}" class="respuesta_consulta"></textarea>
                     </div>`;
         }
     }
